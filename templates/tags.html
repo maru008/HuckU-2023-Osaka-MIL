@@ -1,0 +1,20 @@
+{% extends "base.html"%}
+
+{% block body %}
+
+
+<h1 class="mt-4">{{tag}}好きの人たち</h1><br/>
+
+{% for post in search_posts %}
+  <div>
+    <h2>{{ post.name }}</h2>
+    hobby1:{{ post.hobby1}}  <br/>
+    hobby2:{{ post.hobby2}}<br/>
+    hobby3:{{ post.hobby3}}<br/>
+    hobby4:{{ post.hobby4}}<br/>
+    hobby5:{{ post.hobby5}}<br/>
+
+  </div>
+
+{% endfor %}
+{% endblock %}

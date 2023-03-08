@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2 class="m-5">編集</h2>
+<form class="m-5" action="/update/{{ post.id }}" method="POST">
+    <a class="btn btn-outline-primary" href="/" role="button">Return</a>
+    <button type="submit" class="btn btn-primary">Change</button>
+    <div class="form-group pb-3">
+        <label for="title">name : </label>
+        <input type="text" class="form-control" name="name" aria-describedby="name-help" value={{ post.name }}>
+    </div>
+
+    <div class="form-group pb-3">
+        <label for="hobby1">hobby1 : </label>
+        <input type="text" class="form-control" name="hobby1" value={{ post.hobby1 }}>
+    </div>
+    <div class="form-group pb-3">
+        <label for="hobby2">hobby2 : </label>
+        <input type="text" class="form-control" name="hobby2" value={{ post.hobby2 }}>
+    </div>
+    <div class="form-group pb-3">
+        <label for="hobby3">hobby3 : </label>
+        <input type="text" class="form-control" name="hobby3" value={{ post.hobby3 }}>
+    </div>
+    <div class="form-group pb-3">
+        <label for="hobby4">hobby4 : </label>
+        <input type="text" class="form-control" name="hobby4" value={{ post.hobby4 }}>
+    </div>
+    <div class="form-group pb-3">
+        <label for="hobby5">hobby5 : </label>
+        <input type="text" class="form-control" name="hobby5" value={{ post.hobby5 }}>
+    </div>
+
+    <div class="form-group pb-3">
+        <label for="detail">Detail : </label>
+        <input type="text" class="form-control" name="detail" value={{ post.detail }}>
+    </div>
+    <div class="form-group pb-3">
+        <label for="birthday">Birthday : </label>
+        <input type="date" name="birthday" value={{ post.birthday.date() }} required>
+    </div>
+</form>
+{% endblock %}
