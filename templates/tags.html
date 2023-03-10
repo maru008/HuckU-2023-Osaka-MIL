@@ -3,11 +3,13 @@
 {% block body %}
 
 
-<h1 class="mt-4">{{tag}}好きの人たち</h1><br/>
-
+<h1 class="mt-4">{{tag}}が趣味の人達</h1><br/>
+<p>ヒット数：{{count}}</p>
+<p>タグをクリックしなくても入力による検索で探したい。複数のタグを持つ人を検索できるようにもしたい</p>
 {% for post in search_posts %}
   <div>
     <h2>{{ post.name }}</h2>
+    <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a><br/>
     hobby1:{{ post.hobby1}}  <br/>
     hobby2:{{ post.hobby2}}<br/>
     hobby3:{{ post.hobby3}}<br/>
@@ -17,4 +19,6 @@
   </div>
 
 {% endfor %}
+
+
 {% endblock %}

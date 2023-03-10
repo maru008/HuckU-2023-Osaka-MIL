@@ -1,19 +1,46 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<p></p>
 <h2 class="m-5">新規追加</h2>
+
 <form class="m-5" action="/" method='POST'>
     <a class="btn btn-outline-primary" href="/" role="button">Return</a>
     <button type="submit" class="btn btn-primary">Create</button>
+
+<!--名前を入れてもらう-->
     <div class="form-group pb-3">
         <label for="name">name : </label>
         <input type="text" class="form-control" name="name" aria-describedby="name-help">
         <small id="name-help" class="form-text text-muted">名前を入力してください。</small>
     </div>
 
+
+<!--性別を選択してもらう-->
+    <div class="form-group pb-3">
+        <label for="sex">性別 : </label>
+        <input type="radio" name="sex" value="男性"> 男性
+        <input type="radio" name="sex" value="女性"> 女性
+        <input type="radio" name="sex" value="無回答"> 無回答
+    </div>
+
+    <!--出身地を入れてもらう-->
+    <div class="form-group pb-3">
+        <label for="syussinti">出身地 : </label>
+        <input type="text" class="form-control" name="syussinti">
+    </div>
+
+    <!--誕生日を入れてもらう-->
+    <div class="form-group pb-3">
+        <label for="birthday">Birthday : </label>
+        <input type="date" name="birthday" required>
+    </div>
+
+<!--好きなジャンル　読書・アニメなどを入れてもらう-->
     <div class="form-group pb-3">
         <label for="hobby1">hobby1 : </label>
         <input type="text" class="form-control" name="hobby1">
+        <small id="name-help" class="form-text text-muted">趣味のジャンル(アニメ・運動など)を入力してください。</small>
     </div>
     <div class="form-group pb-3">
         <label for="hobby2">hobby2 : </label>
@@ -32,13 +59,38 @@
         <input type="text" class="form-control" name="hobby5">
     </div>
 
+<!--得意なことや長所　を入れてもらう(教科など)-->
+    <div class="form-group pb-3">
+        <label for="tokui1">得意分野・長所1 : </label>
+        <input type="text" class="form-control" name="tokui1">
+        <small id="name-help" class="form-text text-muted">得意分野や長所を入力してください。</small>
+    </div>
+
+<!--好きなものの具体名　曲名、食べ物などを入れてもらう-->
+    <div class="form-group pb-3">
+        <label for="like1">好物の具体名(曲名など)1 : </label>
+        <input type="text" class="form-control" name="like1">
+        <small id="name-help" class="form-text text-muted">好物の具体名(曲名・食べ物など)を入力してください。</small>
+    </div>
+
+<!--行きたい場所を入れてもらう-->
+    <div class="form-group pb-3">
+        <label for="destination1">行きたい場所1: </label>
+        <input type="text" class="form-control" name="destination1">
+    </div>
+
+<!--タグでは紹介しきれないことを入れてもらう-->
     <div class="form-group pb-3">
         <label for="detail">Detail : </label>
         <input type="text" class="form-control" name="detail">
+        <small id="name-help" class="form-text text-muted">タグでは紹介しきれないことを入力してください。</small>
     </div>
+
+    <!--悩み、グループメンバーに相談したいことを入れてもらう-->
     <div class="form-group pb-3">
-        <label for="birthday">Birthday : </label>
-        <input type="date" name="birthday" required>
+        <label for="sodan1">相談1 : </label>
+        <input type="text" class="form-control" name="sodan1">
+        <small id="name-help" class="form-text text-muted">グループメンバーに相談したいことを入力してください。</small>
     </div>
 
 </form>

@@ -5,9 +5,46 @@
 <form class="m-5" action="/update/{{ post.id }}" method="POST">
     <a class="btn btn-outline-primary" href="/" role="button">Return</a>
     <button type="submit" class="btn btn-primary">Change</button>
+
     <div class="form-group pb-3">
         <label for="title">name : </label>
         <input type="text" class="form-control" name="name" aria-describedby="name-help" value={{ post.name }}>
+    </div>
+
+    <div class="form-group pb-3">
+        <label for="birthday">Birthday : </label>
+        <input type="date" name="birthday" value={{ post.birthday.date() }} required>
+    </div>
+
+    <!--性別を選択してもらう-->
+    <div class="form-group pb-3">
+        <label for="sex">性別 : </label>
+        {% if post.sex=="女性" %}
+            <input type="radio" name="sex" value="男性"> 男性
+            <input type="radio" name="sex" value="女性" checked="checked"> 女性
+            <input type="radio" name="sex" value="無回答"> 無回答
+        {% endif %}
+        {% if post.sex=="男性" %}
+            <input type="radio" name="sex" value="男性" checked="checked"> 男性
+            <input type="radio" name="sex" value="女性"> 女性
+            <input type="radio" name="sex" value="無回答"> 無回答
+        {% endif %}
+        {% if post.sex=="無回答" %}
+            <input type="radio" name="sex" value="男性"> 男性
+            <input type="radio" name="sex" value="女性"> 女性
+            <input type="radio" name="sex" value="無回答" checked="checked"> 無回答
+        {% endif %}
+        {% if post.sex=="" %}
+            <input type="radio" name="sex" value="男性"> 男性
+            <input type="radio" name="sex" value="女性"> 女性
+            <input type="radio" name="sex" value="無回答"> 無回答
+        {% endif %}
+    </div>
+
+    <!--出身地を入れてもらう-->
+    <div class="form-group pb-3">
+        <label for="syussinti">出身地 : </label>
+        <input type="text" class="form-control" name="syussinti" value={{ post.syussinti }}>
     </div>
 
     <div class="form-group pb-3">
@@ -31,13 +68,36 @@
         <input type="text" class="form-control" name="hobby5" value={{ post.hobby5 }}>
     </div>
 
+    <!--得意なことや長所　を入れてもらう(教科など)-->
+    <div class="form-group pb-3">
+        <label for="tokui1">得意分野・長所1 : </label>
+        <input type="text" class="form-control" name="tokui1" value={{ post.tokui1 }}>
+        <small id="name-help" class="form-text text-muted">得意分野や長所を入力してください。</small>
+    </div>
+
+    <!--好きなものの具体名　曲名、食べ物などを入れてもらう-->
+    <div class="form-group pb-3">
+        <label for="like1">好物の具体名(曲名など)1 : </label>
+        <input type="text" class="form-control" name="like1" value={{ post.like1 }}>
+        <small id="name-help" class="form-text text-muted">好物の具体名(曲名・食べ物など)を入力してください。</small>
+    </div>
+
+    <!--行きたい場所を入れてもらう-->
+    <div class="form-group pb-3">
+        <label for="destination1">行きたい場所1: </label>
+        <input type="text" class="form-control" name="destination1" value={{ post.destination1 }}>
+    </div>
+
     <div class="form-group pb-3">
         <label for="detail">Detail : </label>
         <input type="text" class="form-control" name="detail" value={{ post.detail }}>
     </div>
+
+    <!--悩み、グループメンバーに相談したいことを入れてもらう-->
     <div class="form-group pb-3">
-        <label for="birthday">Birthday : </label>
-        <input type="date" name="birthday" value={{ post.birthday.date() }} required>
+        <label for="sodan1">相談1 : </label>
+        <input type="text" class="form-control" name="sodan1" value={{post.sodan1}}>
+        <small id="name-help" class="form-text text-muted">グループメンバーに相談したいことを入力してください。</small>
     </div>
 </form>
 {% endblock %}
