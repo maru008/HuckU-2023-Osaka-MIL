@@ -1,0 +1,22 @@
+{% extends "base.html"%}
+
+{% block body %}
+<h1>hobby1一覧</h1><br/>
+
+
+{% for tagn in tags %}
+  <a href="{{ url_for('search_tag', tag=tagn)}}">{{ tagn }}を探す</a>
+{% endfor %}
+
+{% for posts in posts %}
+
+  <div>
+    <h2>name:{{ posts.name }}</h2>
+    hobby1:{{ posts.hobby1}}  <br/>
+    hobby2:{{ posts.hobby2}} 
+    <br/>
+  </div>
+
+{% endfor %}
+
+{% endblock %}
