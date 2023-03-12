@@ -2,6 +2,8 @@ from datetime import datetime,date
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc,or_,func
+from collections import Counter
+
 
 #データベース作成
 app = Flask(__name__)
@@ -72,6 +74,25 @@ def index():
 @app.route('/create')
 def create():
     return render_template('create.html')
+
+#趣味タグランキング
+@app.route('/ranking_hobby')
+def r_h():
+    posts = Post.query.all()
+    #プロフ登録者すべてのhobbyを集める
+    tags = []
+    for i in posts:
+        tags.append(i.hobby1)
+        tags.append(i.hobby2)
+        tags.append(i.hobby3)
+        tags.append(i.hobby4)
+        tags.append(i.hobby5)
+
+    frequency = Counter(tags)
+    frequency = sorted(frequency.items(), key=lambda x:x[1], reverse=True)
+    frequency = [x for x in frequency if x[0] != '']
+    return render_template('ranking_hobby.html', frequency=frequency, posts=posts,tags=tags)
+
 
 #データベースにあるidを参照し、指定されたタスクの詳細を表示
 @app.route('/detail/<int:id>')
