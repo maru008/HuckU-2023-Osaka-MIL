@@ -1,5 +1,5 @@
 from datetime import datetime,date
-from flask import Flask, render_template, request, redirect, url_forgit 
+from flask import Flask, render_template, request, redirect, url_for 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc,or_,func
 from collections import Counter
