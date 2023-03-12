@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>趣味タグランキング</h2>
+    {{frequency}}
+    <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW PROFILE</a>
+    <a class="btn btn-danger btn-sm" href="/knowledges" role="button">tags</a>
+    <a class="btn btn-danger btn-sm" href="/count" role="button">count</a>
+
+    {% for hobby,count in frequency %}
+    <p>{{hobby}}:{{count}}</p>
+    {% endfor %}
+
+    
+       
+
+{% endblock %}
