@@ -4,6 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc,or_,func
 from collections import Counter
 
+#　＊【変更点】＊
+#プロフから、like1に対応していた欄を削除した
+#出身地を都道府県の選択肢から選ばせるようにした
+#行きたい場所ランキングを作成
 
 #データベース作成
 app = Flask(__name__)
@@ -24,7 +28,9 @@ class Post(db.Model):
 
 
     tokui1 = db.Column(db.String(100))
-    like1 = db.Column(db.String(100))
+
+    #like1 = db.Column(db.String(100))
+
     destination1 = db.Column(db.String(100))
     detail = db.Column(db.String(500))
     sodan1 = db.Column(db.String(500))
@@ -53,7 +59,7 @@ def index():
         hobby4 = request.form.get('hobby4')
         hobby5 = request.form.get('hobby5')
         tokui1 = request.form.get('tokui1')
-        like1 = request.form.get('like1')
+        #like1 = request.form.get('like1')
         destination1 = request.form.get('destination1')
         detail = request.form.get('detail')
         sodan1 = request.form.get('sodan1')
@@ -64,7 +70,9 @@ def index():
         new_post = Post(name=name, sex=sex,syussinti=syussinti,
                         hobby1=hobby1,hobby2=hobby2,
                         hobby3=hobby3,hobby4=hobby4,hobby5=hobby5,
-                        tokui1=tokui1,like1=like1,destination1=destination1,
+                        tokui1=tokui1,
+                        #like1=like1,
+                        destination1=destination1,
                         detail=detail, sodan1=sodan1,birthday=birthday, age=age)
         db.session.add(new_post)
         db.session.commit()
@@ -93,6 +101,19 @@ def r_h():
     frequency = [x for x in frequency if x[0] != '']
     return render_template('ranking_hobby.html', frequency=frequency, posts=posts,tags=tags)
 
+#destinationランキング
+@app.route('/ranking_destination')
+def r_d():
+    posts = Post.query.all()
+    #プロフ登録者すべてのdestinationを集める
+    tags = []
+    for i in posts:
+        tags.append(i.destination1)
+
+    frequency = Counter(tags)
+    frequency = sorted(frequency.items(), key=lambda x:x[1], reverse=True)
+    frequency = [x for x in frequency if x[0] != '']
+    return render_template('ranking_destination.html', frequency=frequency, posts=posts,tags=tags)
 
 #データベースにあるidを参照し、指定されたタスクの詳細を表示
 @app.route('/detail/<int:id>')
@@ -175,7 +196,7 @@ def update(id):
         post.hobby4 = request.form.get('hobby4')
         post.hobby5 = request.form.get('hobby5')
         post.tokui1 = request.form.get('tokui1')
-        post.like1 = request.form.get('like1')
+        #post.like1 = request.form.get('like1')
         post.destination1 = request.form.get('destination1')
         post.detail = request.form.get('detail')
         post.sodan1 = request.form.get('sodan1')
