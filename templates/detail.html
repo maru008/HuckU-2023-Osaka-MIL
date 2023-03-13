@@ -12,8 +12,8 @@
           {% endfor %}</p>
         </details>
         <p>性別：<a href="{{ url_for('search_sex', sex=post.sex)}}">{{ post.sex }}</a></p>
-        <p>出身地：{{ post.syussinti }}</p>
-        <a href="{{ url_for('search_syussinti', syussinti=post.syussinti)}}">{{ post.syussinti }}</a>
+        <p>出身地：<a href="{{ url_for('search_syussinti', syussinti=post.syussinti)}}">{{ post.syussinti }}</a></p>
+        
         
 
         <p>得意分野・長所:{{ post.tokui1 }}</p>
