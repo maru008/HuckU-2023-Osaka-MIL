@@ -3,16 +3,16 @@
 {% block body %}
 <h2 class="m-5">編集</h2>
 <form class="m-5" action="/update/{{ post.id }}" method="POST">
-    <a class="btn btn-outline-primary" href="/" role="button">Return</a>
+    <a class="btn btn-outline-primary" href="/detail/{{post.id}}" role="button">Return</a>
     <button type="submit" class="btn btn-primary">Change</button>
 
     <div class="form-group pb-3">
-        <label for="title">name : </label>
+        <label for="title">名前 : </label>
         <input type="text" class="form-control" name="name" aria-describedby="name-help" value={{ post.name }}>
     </div>
 
     <div class="form-group pb-3">
-        <label for="birthday">Birthday : </label>
+        <label for="birthday">誕生日 : </label>
         <input type="date" name="birthday" value={{ post.birthday.date() }} required>
     </div>
 
@@ -100,6 +100,8 @@
             </select>
     </div>
 
+    <details>
+        <summary>趣味(折りたたみ)</summary>
     <div class="form-group pb-3">
         <label for="hobby1">hobby1 : </label>
         <input type="text" class="form-control" name="hobby1" value={{ post.hobby1 }}>
@@ -120,6 +122,7 @@
         <label for="hobby5">hobby5 : </label>
         <input type="text" class="form-control" name="hobby5" value={{ post.hobby5 }}>
     </div>
+    </details>
 
     <!--得意なことや長所　を入れてもらう(教科など)-->
     <div class="form-group pb-3">
@@ -142,8 +145,9 @@
     </div>
 
     <div class="form-group pb-3">
-        <label for="detail">Detail : </label>
+        <label for="detail">詳細 : </label>
         <input type="text" class="form-control" name="detail" value={{ post.detail }}>
+        <small id="name-help" class="form-text text-muted">タグでは紹介しきれないことを入力してください。</small>
     </div>
 
     <!--悩み、グループメンバーに相談したいことを入れてもらう-->

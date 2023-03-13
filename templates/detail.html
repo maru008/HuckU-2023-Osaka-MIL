@@ -4,38 +4,32 @@
 <h2 class="m-5" style="text-align: center;">詳細</h2>
 <div class="card w-50 mb-3" style="margin: auto;">
     <div class="card-body">
-        <h2 class="card-name">name:{{ post.name }} <span class="ml-3"
-                style="font-size: 0.5em;">誕生日：{{ post.birthday.date() }}</span></h2>
-        <p>hobby1,2,3...と地道に打ってるので、なんとかしたい</p>
-        <p>プロフ入力のときに、hobby1,2...と入力欄が全部出ている状態ではなく、必要な数だけだせるようにしたい</p>
-        <p>趣味の共通数が多い・少ない順、誕生日が近い順などで並べ替える？</p>
-        <details>
-        <summary>【趣味のジャンル】</summary>
-        <p>{% for tagn in tags %}
+        <h2 class="card-name">{{ post.name }} <span class="ml-3"
+                style="font-size: 0.5em;">誕生日：{{ post.birthday.date() }} 年齢：{{post.age}}歳</span></h2>
+
+        <p>趣味:{% for tagn in tags %}
             <a href="{{ url_for('search_tag', tag=tagn)}}">{{ tagn }}</a>
           {% endfor %}</p>
         </details>
         <p>性別：<a href="{{ url_for('search_sex', sex=post.sex)}}">{{ post.sex }}</a></p>
         <p>出身地：{{ post.syussinti }}</p>
-        <details>
-        <summary>【得意分野・長所】</summary>
-        <p>{{ post.tokui1 }}</p>
-        </details>
+
+
+        <p>得意分野・長所:{{ post.tokui1 }}</p>
+
         <!--
         <details>
         <summary>【好きな作品・芸能人など】</summary>
         <p>{{ post.like1 }}</p>
         </details>
         -->
-        <details>
-        <summary>【行きたい場所】</summary>
-        <p>{{ post.destination1 }}</p>
-        </details>
+
+        <p>行きたい場所:{{ post.destination1 }}</p>
+
         <p>詳細:{{ post.detail }}</p>
-        <details>
-        <summary>【相談】</summary>
-        <p>・{{ post.sodan1 }}</p>
-        </details>
+
+        <p>相談:{{ post.sodan1 }}</p>
+
         <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}/sodan1" role="button">Delete</a>
         <div class="pt-2">
             <a class="btn btn-outline-success" href="/" role="button">Return</a>

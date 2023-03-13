@@ -9,6 +9,9 @@ from collections import Counter
 #出身地を都道府県の選択肢から選ばせるようにした
 #行きたい場所ランキングを作成
 
+#hobbysを折りたたみ式に
+#knowledges.html は使わないので、アクセス用のボタンを消した
+
 #データベース作成
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
@@ -36,6 +39,8 @@ class Post(db.Model):
     sodan1 = db.Column(db.String(500))
     birthday = db.Column(db.DateTime)
 
+    birthday_md = db.Column(db.String(50))
+
     age = db.Column(db.Integer)
 
 
@@ -46,10 +51,13 @@ def index():
         #年上順に並べ替える
         posts = Post.query.order_by(Post.birthday).all()
         today=date.today()
+        today=today.strftime('%m-%d')
         return render_template('index.html', posts=posts, today=today)
     #データベースにタスクを保存
     else:
         today=date.today()
+        
+
         name = request.form.get('name')
         sex = request.form.get('sex')
         syussinti = request.form.get('syussinti')
@@ -64,6 +72,9 @@ def index():
         detail = request.form.get('detail')
         sodan1 = request.form.get('sodan1')
         birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d')
+        birthday_md = birthday.strftime('%m-%d')
+        #birthday_m= datetime.strptime(request.form.get('birthday'), '%m')
+        #birthday_d= datetime.strptime(request.form.get('birthday'), '%d')
 
         age = (int(today.strftime("%Y%m%d")) - int(birthday.strftime("%Y%m%d"))) // 10000
 
@@ -71,9 +82,10 @@ def index():
                         hobby1=hobby1,hobby2=hobby2,
                         hobby3=hobby3,hobby4=hobby4,hobby5=hobby5,
                         tokui1=tokui1,
-                        #like1=like1,
                         destination1=destination1,
-                        detail=detail, sodan1=sodan1,birthday=birthday, age=age)
+                        detail=detail, sodan1=sodan1,birthday=birthday, 
+                        birthday_md=birthday_md,
+                        age=age)
         db.session.add(new_post)
         db.session.commit()
         return redirect('/')
@@ -226,17 +238,46 @@ def search_sex(sex):
     search_sexs = Post.query.filter(Post.sex == sex).all()
     count = len(search_sexs)
     return render_template('tags_sex.html', search_sexs=search_sexs, sex=sex,count=count)
-
+"""
 @app.route('/count')
-def count_sex():
-    counts = {}
+def count():
+    counts_sex = {}
     posts = Post.query.all()
     sexs = list(set([Post.sex for Post in posts]))
     for i in sexs:
         search_sexs = Post.query.filter(Post.sex == i).all()
         count = len(search_sexs)
-        counts[i]=count
-    return render_template('count.html', sexs=sexs,counts=counts)
+        counts_sex[i]=count
+
+    counts_syussinti = {}
+    syussintis = list(set([Post.syussinti for Post in posts]))
+    for i in syussintis:
+        search_syussintis = Post.query.filter(Post.syussinti == i).all()
+        count = len(search_syussintis)
+        counts_syussinti[i]=count
+    return render_template('count.html', sexs=sexs,counts_sex=counts_sex,
+                           syussintis=syussintis,counts_syussinti=counts_syussinti)
+
+"""
+@app.route('/count')
+def count_ss():
+    posts = Post.query.all()
+    tags_sex = []
+    tags_syu = []
+    for i in posts:
+        tags_sex.append(i.sex)
+        tags_syu.append(i.syussinti)
+
+    frequency_sex = Counter(tags_sex)
+    frequency_sex = sorted(frequency_sex.items(), key=lambda x:x[1], reverse=True)
+    frequency_sex = [x for x in frequency_sex if x[0] != '']
+
+    frequency_syu = Counter(tags_syu)
+    frequency_syu = sorted(frequency_syu.items(), key=lambda x:x[1], reverse=True)
+    frequency_syu = [x for x in frequency_syu if x[0] != '']
+    return render_template('count.html', frequency_sex=frequency_sex, posts=posts,tags_sex=tags_sex,
+                           frequency_syu=frequency_syu,tags_syu=tags_syu)
+
 
 #すべてのタグの共通数を数え、共通点も表示したい
 

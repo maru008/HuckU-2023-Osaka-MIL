@@ -1,20 +1,26 @@
+{% extends 'base.html' %}
+
 {% block body %}
+<div class="container">
+    <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW PROFILE</a>
+    <a class="btn btn-danger btn-sm" href="/knowledges" role="button">tags</a>
+    <a class="btn btn-danger btn-sm" href="/count" role="button">count</a>
 
+    <h2>性別カウント</h2>
+    {% for sex,count in frequency_sex %}
+    <p>{{sex}}:{{count}}</p>
+    {% endfor %}
 
-<h1 class="mt-4">カウント</h1><br/>
-<p>もっと効率的に書けるようにしたい</p>
-<p>多い順・少ない順で並べたい</p>
-  <div>
-    <p>女性：{{ counts.女性 }}</p>
-  </div>
-  <div>
-    <p>男性：{{ counts.男性 }}</p>
-  </div>
-  <div>
-    <p>無回答：{{ counts.無回答 }}</p>
-  </div>
+    <h2>出身地カウント</h2>
+    {% for syu,count in frequency_syu %}
+    <p>{{syu}}:{{count}}</p>
+    {% endfor %}
 
-
-
+    
+       
 
 {% endblock %}
+
+
+
+
