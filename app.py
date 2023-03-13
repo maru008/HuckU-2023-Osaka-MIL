@@ -3,14 +3,18 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc,or_,func
 from collections import Counter
+from calendar import isleap
 
 #　＊【変更点】＊
 #プロフから、like1に対応していた欄を削除した
 #出身地を都道府県の選択肢から選ばせるようにした
 #行きたい場所ランキングを作成
 
-#hobbysを折りたたみ式に
 #knowledges.html は使わないので、アクセス用のボタンを消した
+#誕生日の判定方法が、年月日参照だったが、月日だけで判断するようになった
+
+#2/29生まれの人は、うるう年でないとき、3/1を誕生日扱いするように
+#同じ出身地の人を検索する機能追加
 
 #データベース作成
 app = Flask(__name__)
@@ -51,8 +55,13 @@ def index():
         #年上順に並べ替える
         posts = Post.query.order_by(Post.birthday).all()
         today=date.today()
-        today=today.strftime('%m-%d')
-        return render_template('index.html', posts=posts, today=today)
+        md=today.strftime('%m-%d')
+        year = today.strftime('%Y')
+        year=int(year)
+        uru=isleap(year)
+        return render_template('index.html', posts=posts, md=md,year=year,
+                               uru=uru
+                               )
     #データベースにタスクを保存
     else:
         today=date.today()
@@ -238,6 +247,12 @@ def search_sex(sex):
     search_sexs = Post.query.filter(Post.sex == sex).all()
     count = len(search_sexs)
     return render_template('tags_sex.html', search_sexs=search_sexs, sex=sex,count=count)
+
+@app.route('/knowledges/tags_syussinti/<syussinti>')
+def search_syussinti(syussinti):
+    search_syussinti = Post.query.filter(Post.syussinti == syussinti).all()
+    count = len(search_syussinti)
+    return render_template('tags_syussinti.html', search_syussinti=search_syussinti,count=count,syussinti=syussinti)
 """
 @app.route('/count')
 def count():

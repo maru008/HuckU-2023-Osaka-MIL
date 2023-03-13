@@ -20,15 +20,29 @@
             -->
             <!--
             メモ
-            {{today}}
+            {{md}}
             誕生日{{post.birthday_md}}
             -->
+            
 
-            {% if post.birthday_md == today %}
+            {% if post.birthday_md == md %}
             <div class="alert alert-warning" role="alert">
                 今日は誕生日です！
             </div>
             {% endif %}
+            <!--2/29生まれの人は、うるう年でないとき、3/1を誕生日扱いする。-->
+            {% if post.birthday_md=="02-29" %}
+            {% if uru == False %}
+            {% if md=="03-01" %}
+            <div class="alert alert-warning" role="alert">
+                今日は誕生日です！
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+
+            
+            
 
             {% if post.sodan1 != "" %}
             <div class="alert alert-warning" role="alert">
