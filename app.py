@@ -11,10 +11,10 @@ from calendar import isleap
 #行きたい場所ランキングを作成
 
 #knowledges.html は使わないので、アクセス用のボタンを消した
-#誕生日の判定方法が、年月日参照だったが、月日だけで判断するようになった
+#今日が誕生日かどうかの判定方法が、年月日参照だったが、月日だけで判断するようになった
 
 #2/29生まれの人は、うるう年でないとき、3/1を誕生日扱いするように
-#同じ出身地の人を検索する機能追加
+#同じ出身地の人を、タグクリックで検索する機能追加
 
 #データベース作成
 app = Flask(__name__)
@@ -152,6 +152,7 @@ def read(id):
 #特定のユーザーとの共通点数え
 @app.route('/same/<int:id>')
 def same(id):
+    today=date.today()
     same_counts = {}
 
     post_id = Post.query.get(id)
@@ -172,7 +173,14 @@ def same(id):
         tags.extend(set([i.hobby5]))
         tags = set(tags)
 
-        same_count = len(set(tags)&set(tags_id))-1
+        same_count = len(set(tags)&set(tags_id))
+        for j in tags_id:
+            if j == "":
+                same_count-=1
+                break
+    
+        if same_count<0:
+            same_count=0
         same_counts[i]=same_count
     
     sames = []
@@ -183,7 +191,7 @@ def same(id):
         sames.append(same_counts[i][0])
     
     return render_template('same.html', post_id=post_id, posts=posts,tags_id=tags_id,
-                           sames=sames,same_counts=same_counts,id=id)
+                           sames=sames,same_counts=same_counts,id=id,today=today)
 
 #指定されたタスクを削除
 @app.route('/delete/<int:id>')
@@ -221,7 +229,9 @@ def update(id):
         post.destination1 = request.form.get('destination1')
         post.detail = request.form.get('detail')
         post.sodan1 = request.form.get('sodan1')
-        post.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d')
+        #today=date.today()
+        #post.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d')
+        #post.age = (int(today.strftime("%Y%m%d")) - int(post.birthday.strftime("%Y%m%d"))) // 10000
         db.session.commit()
         return redirect('/')
 
@@ -292,6 +302,36 @@ def count_ss():
     frequency_syu = [x for x in frequency_syu if x[0] != '']
     return render_template('count.html', frequency_sex=frequency_sex, posts=posts,tags_sex=tags_sex,
                            frequency_syu=frequency_syu,tags_syu=tags_syu)
+
+@app.route('/nearbirthday')
+def nearbirthday():
+    posts = Post.query.all()
+    today=date.today()
+    nears = {}
+    for i in posts:
+        birthday=i.birthday.date()
+        y = today.strftime('%Y')
+        y=int(y)
+        uru=isleap(y)
+        if birthday.strftime('%m-%d')=='02-29' and uru==False:
+            birthday=birthday.replace(month=3,day=1)
+        #birthday_md = birthday.strftime('%m-%d')
+        birthday=birthday.replace(year=y)
+        t=today.timetuple().tm_yday
+        b=birthday.timetuple().tm_yday
+        near=b-t
+
+        #near = (int(today.strftime('%Y%m%d')) - int(birthday.strftime("%m%d")))
+        #age = (int(today.strftime("%Y%m%d")) - int(birthday.strftime("%Y%m%d"))) // 10000
+        #md=today.strftime('%m-%d')
+        nears[i]=near
+    nears = sorted(nears.items(), key=lambda x:x[1], reverse=False)
+    for n in nears:
+        if n[1]<0:
+            nears.append(nears.pop(0))
+    
+    return render_template('nearbirthday.html', posts=posts,today=today,nears=nears)
+    
 
 
 #すべてのタグの共通数を数え、共通点も表示したい

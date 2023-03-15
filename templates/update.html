@@ -4,18 +4,18 @@
 <h2 class="m-5">編集</h2>
 <form class="m-5" action="/update/{{ post.id }}" method="POST">
     <a class="btn btn-outline-primary" href="/detail/{{post.id}}" role="button">Return</a>
-    <button type="submit" class="btn btn-primary" href="/detail/{{post.id}}">Change</button>
+    <button type="submit" class="btn btn-primary">Change</button>
 
     <div class="form-group pb-3">
         <label for="title">名前 : </label>
         <input type="text" class="form-control" name="name" aria-describedby="name-help" value={{ post.name }}>
     </div>
-
+<!--
     <div class="form-group pb-3">
         <label for="birthday">誕生日 : </label>
         <input type="date" name="birthday" value={{ post.birthday.date() }} required>
     </div>
-
+-->
     <!--性別を選択してもらう-->
     <div class="form-group pb-3">
         <label for="sex">性別 : </label>

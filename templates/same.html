@@ -2,11 +2,12 @@
 
 {% block body %}
 <div class="container">
-    {{same_counts}}
     <h2>{{post_id.name}}と趣味の共通数が多い順</h2>
     <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW PROFILE</a>
     <a class="btn btn-danger btn-sm" href="/knowledges" role="button">tags</a>
     <a class="btn btn-danger btn-sm" href="/count" role="button">count</a>
+    <!--{{same_counts}}
+    {{sames}}-->
     {% for same,count in same_counts %}
     <div class="card w-50 mb-3" style="margin: auto;">
         <div class="card-body">
