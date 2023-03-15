@@ -173,6 +173,8 @@ def same(id):
         tags = set(tags)
 
         same_count = len(set(tags)&set(tags_id))-1
+        if same_count<0:
+            same_count=0
         same_counts[i]=same_count
     
     sames = []
@@ -221,7 +223,9 @@ def update(id):
         post.destination1 = request.form.get('destination1')
         post.detail = request.form.get('detail')
         post.sodan1 = request.form.get('sodan1')
-        post.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d')
+        #today=date.today()
+        #post.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d')
+        #post.age = (int(today.strftime("%Y%m%d")) - int(post.birthday.strftime("%Y%m%d"))) // 10000
         db.session.commit()
         return redirect('/')
 
