@@ -9,6 +9,13 @@
     <a class="btn btn-danger btn-sm" href="/ranking_hobby" role="button">hobby ranking</a>
     <a class="btn btn-danger btn-sm" href="/ranking_destination" role="button">destination ranking</a>
     <a class="btn btn-danger btn-sm" href="/nearbirthday" role="button">誕生日近い順</a>
+
+    <p>趣味タグ検索</p>
+    <form method="POST" action="{{ url_for('search_hobby') }}">
+        <input type="text" name="search_term" placeholder="Enter a search term">
+        <button type="submit">Search</button>
+    </form>
+
     {% for post in posts %}
     <div class="card w-50 mb-3" style="margin: auto;">
         <div class="card-body">

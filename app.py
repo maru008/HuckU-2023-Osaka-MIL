@@ -351,6 +351,31 @@ def nearbirthday():
             break
     
     return render_template('nearbirthday.html', posts=posts,today=today,nears=nears)
+
+#趣味タグをすべて集め、ワード検索できるように
+@app.route('/search', methods=['POST'])
+def search_hobby():
+    if request.method == 'POST':
+        search_term = request.form['search_term']
+        posts = Post.query.all()
+        tags = []
+        results = []
+        for i in posts:
+            tags.append(i.hobby1)
+            tags.append(i.hobby2)
+            tags.append(i.hobby3)
+            tags.append(i.hobby4)
+            tags.append(i.hobby5)
+        element_to_remove = ""
+        tags = [x for x in tags if x != element_to_remove]
+        tags = set(tags)
+        tags = list(tags)
+        for tag in tags:
+            if search_term is not None and search_term in tag:
+                results.append(tag)
+#{'', 'ゲーム', '睡眠', '散歩', '写真', 'テニス', '音楽', 'カフェ', 'ファション', 'アニメ', '映画', '掃除', 'スキー', 'ランニング', 'ピアノ', '読書'}
+        return render_template('search.html', results=results
+                           ,tags=tags,search_term=search_term)
     
 
 
