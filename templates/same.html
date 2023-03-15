@@ -26,7 +26,8 @@
             <h2 class="card-name">{{ same.name }}</h2>
             <p>誕生日：{{ same.birthday.date() }}　年齢：{{same.age}}歳</p>
             <p>一致数：{{count}}</p>
-            <a class="btn btn-secondary btn-sm" href="/detail/{{ same.id }}" role="button">Detail</a>
+            <!--<a class="btn btn-secondary btn-sm" href="/detail/{{ same.id }}" role="button">Detail</a>-->
+            <a class="btn btn-secondary btn-sm" href="/detail2/{{ same.id }}" role="button">Detail</a>
             <a class="btn btn-success btn-sm" href="/update/{{ same.id }}" role="button">Update</a>
             <a class="btn btn-danger btn-sm" href="/delete/{{ same.id }}" role="button">Delete</a>
         </div>
