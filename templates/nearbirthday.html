@@ -24,7 +24,7 @@
             <p>誕生日：{{ b.birthday.date() }}　年齢：{{b.age}}歳</p>
             <a class="btn btn-secondary btn-sm" href="/detail/{{ b.id }}" role="button">Detail</a>
             <a class="btn btn-success btn-sm" href="/update/{{ b.id }}" role="button">Update</a>
-            <a class="btn btn-danger btn-sm" href="/delete/{{ b.id }}" role="button">Delete</a>
+            <a class="btn btn-danger btn-sm" href="/delete/birthday/{{ b.id }}" role="button">Delete</a>
         </div>
     </div>
     {% endfor %}

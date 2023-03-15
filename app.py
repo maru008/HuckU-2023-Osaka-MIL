@@ -149,6 +149,18 @@ def read(id):
     tags = set(tags)
     return render_template('detail.html', post=post, posts=posts,tags=tags)
 
+@app.route('/detail2/<int:id>')
+def read2(id):
+    post = Post.query.get(id)
+    posts = Post.query.all()
+    tags = list(set([post.hobby1]))
+    tags.extend(set([post.hobby2]))
+    tags.extend(set([post.hobby3]))
+    tags.extend(set([post.hobby4]))
+    tags.extend(set([post.hobby5]))
+    tags = set(tags)
+    return render_template('detail2.html', post=post, posts=posts,tags=tags)
+
 #特定のユーザーとの共通点数え
 @app.route('/same/<int:id>')
 def same(id):
@@ -200,6 +212,12 @@ def delete(id):
     db.session.delete(post)
     db.session.commit()
     return redirect('/')
+@app.route('/delete/birthday/<int:id>')
+def delete_birthday(id):
+    post = Post.query.get(id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect('/nearbirthday')
 
 @app.route('/delete/<int:id>/sodan1')
 def delete_sodan(id):
@@ -326,9 +344,11 @@ def nearbirthday():
         #md=today.strftime('%m-%d')
         nears[i]=near
     nears = sorted(nears.items(), key=lambda x:x[1], reverse=False)
-    for n in nears:
-        if n[1]<0:
+    for i in range(len(nears)):
+        if nears[0][1]<0:
             nears.append(nears.pop(0))
+        if nears[0][1]>=0:
+            break
     
     return render_template('nearbirthday.html', posts=posts,today=today,nears=nears)
     
