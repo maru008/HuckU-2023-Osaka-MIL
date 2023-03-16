@@ -1,0 +1,16 @@
+{% extends "base.html"%}
+
+{% block body %}
+
+
+<h1 class="mt-4">{{syussinti}}出身の人達</h1><br/>
+<p>ヒット数：{{count}}</p>
+{% for post in search_syussinti %}
+  <div>
+    <h2>{{ post.name }}</h2>
+    <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a><br/>
+
+  </div>
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>誕生日が近い順</h2>
+    <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW PROFILE</a>
+    <a class="btn btn-danger btn-sm" href="/count" role="button">count</a>
+    {% for b,count in nears %}
+    <div class="card w-50 mb-3" style="margin: auto;">
+        <div class="card-body">
+            {% if b.birthday.date() == today %}
+            <div class="alert alert-warning" role="alert">
+                今日は誕生日です！
+            </div>
+            {% endif %}
+
+            {% if b.sodan1 != "" %}
+            <div class="alert alert-warning" role="alert">
+                相談あり
+            </div>
+            {% endif %}
+
+            <h2 class="card-name">{{ b.name }}</h2>
+            <p>誕生日：{{ b.birthday.date() }}　年齢：{{b.age}}歳</p>
+            <a class="btn btn-secondary btn-sm" href="/detail/{{ b.id }}" role="button">Detail</a>
+            <a class="btn btn-success btn-sm" href="/update/{{ b.id }}" role="button">Update</a>
+            <a class="btn btn-danger btn-sm" href="/delete/birthday/{{ b.id }}" role="button">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

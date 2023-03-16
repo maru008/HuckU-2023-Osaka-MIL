@@ -4,18 +4,53 @@
 <div class="container">
     <h2>年上順</h2>
     <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW PROFILE</a>
-    <a class="btn btn-danger btn-sm" href="/knowledges" role="button">tags</a>
+    <!--<a class="btn btn-danger btn-sm" href="/knowledges" role="button">tags</a>-->
     <a class="btn btn-danger btn-sm" href="/count" role="button">count</a>
-    <a class="btn btn-danger btn-sm" href="/ranking_hobby" role="button">ranking</a>
+    <a class="btn btn-danger btn-sm" href="/ranking_hobby" role="button">hobby ranking</a>
+    <a class="btn btn-danger btn-sm" href="/ranking_destination" role="button">destination ranking</a>
+    <a class="btn btn-danger btn-sm" href="/nearbirthday" role="button">誕生日近い順</a>
+
+    <p>趣味タグ検索</p>
+    <form method="POST" action="{{ url_for('search_hobby') }}">
+        <input type="text" name="search_term" placeholder="Enter a search term">
+        <button type="submit">Search</button>
+    </form>
+
     {% for post in posts %}
     <div class="card w-50 mb-3" style="margin: auto;">
         <div class="card-body">
-
-            {% if post.birthday.date() == today %}
+            <!--
+            {% if post.birthday.date() == today%}
             <div class="alert alert-warning" role="alert">
                 今日は誕生日です！
             </div>
             {% endif %}
+            -->
+            <!--
+            メモ
+            {{md}}
+            誕生日{{post.birthday_md}}
+            -->
+            
+
+            {% if post.birthday_md == md %}
+            <div class="alert alert-warning" role="alert">
+                今日は誕生日です！
+            </div>
+            {% endif %}
+            <!--2/29生まれの人は、うるう年でないとき、3/1を誕生日扱いする。-->
+            {% if post.birthday_md=="02-29" %}
+            {% if uru == False %}
+            {% if md=="03-01" %}
+            <div class="alert alert-warning" role="alert">
+                今日は誕生日です！
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+
+            
+            
 
             {% if post.sodan1 != "" %}
             <div class="alert alert-warning" role="alert">
