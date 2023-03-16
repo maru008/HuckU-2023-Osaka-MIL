@@ -270,6 +270,15 @@ def search_tag(tag):
     count = len(search_posts)
     return render_template('tags.html', search_posts=search_posts, tag=tag,count=count)
 
+@app.route('/knowledges/tags2/<tag>')
+def search_tag2(tag):
+    search_posts = Post.query.filter(or_(Post.hobby1 == tag, Post.hobby2==tag,
+                                         Post.hobby3==tag,Post.hobby4==tag
+                                         ,Post.hobby5==tag, Post.sex==tag,
+                                         Post.syussinti==tag)).all()
+    count = len(search_posts)
+    return render_template('tags.html', search_posts=search_posts, tag=tag,count=count)
+
 @app.route('/knowledges/tags_sex/<sex>')
 def search_sex(sex):
     search_sexs = Post.query.filter(Post.sex == sex).all()
@@ -366,6 +375,8 @@ def search_hobby():
             tags.append(i.hobby3)
             tags.append(i.hobby4)
             tags.append(i.hobby5)
+            tags.append(i.sex)
+            tags.append(i.syussinti)
         element_to_remove = ""
         tags = [x for x in tags if x != element_to_remove]
         tags = set(tags)
