@@ -12,15 +12,17 @@
 
 {% if results %}
     <h2>Results</h2>
-    <p>入力ワード:{{search_term}}</p>
+    <h4>入力ワード : <span style="color:red;">{{search_term}}</span><a class="btn btn-outline-success btn-lg m-5" href="/" role="button">Return</a></h4>
     <ul>
         {% for item in results %}
             <li><a href="{{ url_for('search_tag2', tag=item)}}">{{ item }}</a></li>
-            
+    </br>
         {% endfor %}
     </ul>
 {% else %}
-    <p>No results found</p>
+<h4>入力ワード:<span style="color:red;">{{search_term}}</span></h4>
+    <h4>No results found</h4>
+    <a class="btn btn-outline-success btn-lg m-5" href="/" role="button">Return</a>
 {% endif %}
 
 

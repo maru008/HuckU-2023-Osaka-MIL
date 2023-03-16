@@ -61,7 +61,7 @@
             {% endif %}
 
             <h2 class="card-name">{{ post.name }}</h2>
-            <p>誕生日：{{ post.birthday.date() }}　年齢：{{post.age}}歳</p>
+            <p>誕生日：{{ post.birthday.date() }} 年齢：{{post.age}}歳</p>
             <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
             <a class="btn btn-success btn-sm" href="/update/{{ post.id }}" role="button">Update</a>
             <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>

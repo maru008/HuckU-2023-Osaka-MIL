@@ -340,12 +340,17 @@ def count_ss():
 def nearbirthday():
     posts = Post.query.all()
     today=date.today()
+    md=today.strftime('%m-%d')
+    year = today.strftime('%Y')
+    year=int(year)
+    uru=isleap(year)
     nears = {}
     for i in posts:
         birthday=i.birthday.date()
         y = today.strftime('%Y')
         y=int(y)
         uru=isleap(y)
+        md=today.strftime('%m-%d')
         if birthday.strftime('%m-%d')=='02-29' and uru==False:
             birthday=birthday.replace(month=3,day=1)
         #birthday_md = birthday.strftime('%m-%d')
@@ -365,7 +370,9 @@ def nearbirthday():
         if nears[0][1]>=0:
             break
     
-    return render_template('nearbirthday.html', posts=posts,today=today,nears=nears)
+    return render_template('nearbirthday.html', posts=posts,today=today,nears=nears,
+                           md=md,uru=uru)
+
 
 #趣味タグをすべて集め、ワード検索できるように
 @app.route('/search', methods=['POST'])
@@ -450,7 +457,7 @@ def search_user():
 #{'', 'ゲーム', '睡眠', '散歩', '写真', 'テニス', '音楽', 'カフェ', 'ファション', 'アニメ', '映画', '掃除', 'スキー', 'ランニング', 'ピアノ', '読書'}
         return render_template('s_user.html', results=results
                            ,sex=sex,syussinti=syussinti,hobby1=hobby1,hobby2=hobby2,
-                           hobby3=hobby3,hobby4=hobby4,hobby5=hobby5,count=count)
+                           hobby3=hobby3,hobby4=hobby4,hobby5=hobby5,count=count,name=name)
 
 
         return redirect('/')
