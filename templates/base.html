@@ -5,21 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <title>プロフィールアプリ</title>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-            プロフィールアプリ
-          </a>
-        </div>
-      </nav>
-    {% block head %}{% endblock %}
+    <title>TunaguNote</title>
 </head>
-<p><img src="../image/shutterstock_1492332182.jpg" class="img-fluid"></p>
 <body>
     <nav class="navbar navbar-light bg-light p-3">
-        <a class="navbar-brand pl-3" href="/" style="font-size: 2rem;">プロフィールアプリ</a>
+        <a class="navbar-brand pl-3" href="/" style="font-size: 2rem;">TunaguNote</a>
     </nav>
     {% block body %}{% endblock %}
 </body>

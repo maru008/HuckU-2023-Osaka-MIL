@@ -7,15 +7,17 @@
 <p>ヒット数：{{count}}</p>
 
 {% for post in search_posts %}
-  <div>
-    <h2>{{ post.name }}</h2>
-    <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a><br/>
-    hobby1:{{ post.hobby1}}  <br/>
+  <div class="d-flex align-items-center">
+    <h2 class="p-5">{{ post.name }}</h2>
+    <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
+    <div class="p-2">
+    <br/>
+    hobby1:{{ post.hobby1}}<br/>
     hobby2:{{ post.hobby2}}<br/>
     hobby3:{{ post.hobby3}}<br/>
     hobby4:{{ post.hobby4}}<br/>
     hobby5:{{ post.hobby5}}<br/>
-
+    </div>
   </div>
 
 {% endfor %}
