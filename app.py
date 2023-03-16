@@ -397,6 +397,7 @@ def search_hobby():
 @app.route('/s_user', methods=['POST'])
 def search_user():
         count = 0
+        name = request.form.get('name')
         sex = request.form.get('sex')
         syussinti = request.form.get('syussinti')
         hobby1 = request.form.get('hobby1')
@@ -419,6 +420,7 @@ def search_user():
 
         results = []
         for i in posts:
+            i_name = i.name
             i_sex = i.sex
             i_syussinti = i.syussinti
             hobbys = []
@@ -432,16 +434,16 @@ def search_user():
             hobbys = set(hobbys)
             #hobbys = list(hobbys)
 
-            if s_hobbys.issubset(hobbys) and i_sex == sex and i_syussinti == syussinti:
+            if s_hobbys.issubset(hobbys) and i_sex == sex and i_syussinti == syussinti and name in i_name:
                 results.append(i)
                 count+=1
-            elif s_hobbys.issubset(hobbys) and sex == "無条件" and i_syussinti == syussinti:
+            elif s_hobbys.issubset(hobbys) and sex == "無条件" and i_syussinti == syussinti and name in i_name:
                 results.append(i)
                 count+=1
-            elif s_hobbys.issubset(hobbys) and i_sex == sex and syussinti == "":
+            elif s_hobbys.issubset(hobbys) and i_sex == sex and syussinti == "" and name in i_name:
                 results.append(i)
                 count+=1
-            elif s_hobbys.issubset(hobbys) and sex == "無条件" and syussinti == "":
+            elif s_hobbys.issubset(hobbys) and sex == "無条件" and syussinti == "" and name in i_name:
                 results.append(i)
                 count+=1
         
