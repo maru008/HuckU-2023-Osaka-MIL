@@ -104,6 +104,10 @@ def index():
 def create():
     return render_template('create.html')
 
+@app.route('/zyoken')
+def zyoken():
+    return render_template('zyoken.html')
+
 #趣味タグランキング
 @app.route('/ranking_hobby')
 def r_h():
@@ -270,6 +274,17 @@ def search_tag(tag):
     count = len(search_posts)
     return render_template('tags.html', search_posts=search_posts, tag=tag,count=count)
 
+#★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+@app.route('/knowledges/tags2/<tag>')
+def search_tag2(tag):
+    search_posts = Post.query.filter(or_(Post.hobby1 == tag, Post.hobby2==tag,
+                                         Post.hobby3==tag,Post.hobby4==tag
+                                         ,Post.hobby5==tag, Post.sex==tag,
+                                         Post.syussinti==tag)).all()
+    count = len(search_posts)
+    return render_template('tags.html', search_posts=search_posts, tag=tag,count=count)
+#★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+
 @app.route('/knowledges/tags_sex/<sex>')
 def search_sex(sex):
     search_sexs = Post.query.filter(Post.sex == sex).all()
@@ -366,6 +381,8 @@ def search_hobby():
             tags.append(i.hobby3)
             tags.append(i.hobby4)
             tags.append(i.hobby5)
+            tags.append(i.sex)
+            tags.append(i.syussinti)
         element_to_remove = ""
         tags = [x for x in tags if x != element_to_remove]
         tags = set(tags)
@@ -376,6 +393,65 @@ def search_hobby():
 #{'', 'ゲーム', '睡眠', '散歩', '写真', 'テニス', '音楽', 'カフェ', 'ファション', 'アニメ', '映画', '掃除', 'スキー', 'ランニング', 'ピアノ', '読書'}
         return render_template('search.html', results=results
                            ,tags=tags,search_term=search_term)
+    
+@app.route('/s_user', methods=['POST'])
+def search_user():
+        count = 0
+        sex = request.form.get('sex')
+        syussinti = request.form.get('syussinti')
+        hobby1 = request.form.get('hobby1')
+        hobby2 = request.form.get('hobby2')
+        hobby3 = request.form.get('hobby3')
+        hobby4 = request.form.get('hobby4')
+        hobby5 = request.form.get('hobby5')
+        posts = Post.query.all()
+
+        s_hobbys = []
+        s_hobbys.append(hobby1)
+        s_hobbys.append(hobby2)
+        s_hobbys.append(hobby3)
+        s_hobbys.append(hobby4)
+        s_hobbys.append(hobby5)
+        element_to_remove = ""
+        s_hobbys = [x for x in s_hobbys if x != element_to_remove]
+        s_hobbys = set(s_hobbys)
+        #s_hobbys = list(s_hobbys)
+
+        results = []
+        for i in posts:
+            i_sex = i.sex
+            i_syussinti = i.syussinti
+            hobbys = []
+            hobbys.append(i.hobby1)
+            hobbys.append(i.hobby2)
+            hobbys.append(i.hobby3)
+            hobbys.append(i.hobby4)
+            hobbys.append(i.hobby5)
+            element_to_remove = ""
+            hobbys = [x for x in hobbys if x != element_to_remove]
+            hobbys = set(hobbys)
+            #hobbys = list(hobbys)
+
+            if s_hobbys.issubset(hobbys) and i_sex == sex and i_syussinti == syussinti:
+                results.append(i)
+                count+=1
+            elif s_hobbys.issubset(hobbys) and sex == "無条件" and i_syussinti == syussinti:
+                results.append(i)
+                count+=1
+            elif s_hobbys.issubset(hobbys) and i_sex == sex and syussinti == "":
+                results.append(i)
+                count+=1
+            elif s_hobbys.issubset(hobbys) and sex == "無条件" and syussinti == "":
+                results.append(i)
+                count+=1
+        
+#{'', 'ゲーム', '睡眠', '散歩', '写真', 'テニス', '音楽', 'カフェ', 'ファション', 'アニメ', '映画', '掃除', 'スキー', 'ランニング', 'ピアノ', '読書'}
+        return render_template('s_user.html', results=results
+                           ,sex=sex,syussinti=syussinti,hobby1=hobby1,hobby2=hobby2,
+                           hobby3=hobby3,hobby4=hobby4,hobby5=hobby5,count=count)
+
+
+        return redirect('/')
     
 
 
