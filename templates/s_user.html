@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+{% block body %}
+
+<h2>検索条件</h2>
+<p>性別 : {{sex}},
+出身地：{{syussinti}},
+趣味：{{hobby1}} {{hobby2}} {{hobby3}} {{hobby4}} {{hobby5}},
+ヒット数：{{count}}</p>
+
+{% if results %}
+{% for r in results %}
+  <div>
+    <h2>{{ r.name }}</h2>
+    <a class="btn btn-secondary btn-sm" href="/detail/{{ r.id }}" role="button">Detail</a><br/>
+    <p>性別:{{r.sex}}</p>
+    <p>出身地：{{r.syussinti}}</p>
+    hobby1:{{ r.hobby1}}  <br/>
+    hobby2:{{ r.hobby2}}<br/>
+    hobby3:{{ r.hobby3}}<br/>
+    hobby4:{{ r.hobby4}}<br/>
+    hobby5:{{ r.hobby5}}<br/>
+
+  </div>
+
+{% endfor %}
+
+
+{% else %}
+    <p>No results found</p>
+{% endif %}
+
+{% endblock %}
