@@ -2,21 +2,22 @@
 
 {% block body %}
 <div class="container">
+</br>
     <h2>年上順</h2>
     <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW PROFILE</a>
     <!--<a class="btn btn-danger btn-sm" href="/knowledges" role="button">tags</a>-->
     <a class="btn btn-danger btn-sm" href="/count" role="button">count</a>
-    <a class="btn btn-danger btn-sm" href="/ranking_hobby" role="button">hobby ranking</a>
-    <a class="btn btn-danger btn-sm" href="/ranking_destination" role="button">destination ranking</a>
-    <a class="btn btn-danger btn-sm" href="/nearbirthday" role="button">誕生日近い順</a>
-    <a class="btn btn-danger btn-sm" href="/zyoken" role="button">条件検索</a>
+    <a class="btn btn-primary btn-sm" href="/ranking_hobby" role="button">趣味ランキング</a>
+    <a class="btn btn-warning btn-sm" href="/ranking_destination" role="button">行き先ランキング</a>
+    <a class="btn btn-success btn-sm" href="/nearbirthday" role="button">誕生日近い順</a>
+    <a class="btn btn-secondary btn-sm" href="/zyoken" role="button">条件検索</a>
 
     <p>タグ検索</p>
     <form method="POST" action="{{ url_for('search_hobby') }}">
-        <input type="text" name="search_term" placeholder="Enter a search term">
+        <input type="text" name="search_term" placeholder="search tags">
         <button type="submit">Search</button>
     </form>
-
+</br>
     {% for post in posts %}
     <div class="card w-50 mb-3" style="margin: auto;">
         <div class="card-body">
@@ -35,7 +36,7 @@
             
 
             {% if post.birthday_md == md %}
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-primary" role="alert">
                 今日は誕生日です！
             </div>
             {% endif %}
@@ -43,7 +44,7 @@
             {% if post.birthday_md=="02-29" %}
             {% if uru == False %}
             {% if md=="03-01" %}
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-primary" role="alert">
                 今日は誕生日です！
             </div>
             {% endif %}

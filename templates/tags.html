@@ -3,12 +3,12 @@
 {% block body %}
 
 
-<h1 class="mt-4">{{tag}}というタグを登録している人達</h1><br/>
-<p>ヒット数：{{count}}</p>
-
+<h2 class="mt-4"><span style="color:red;">{{tag}}</span> というタグを登録している人達</h2>
+<h4>ヒット数：<span style="color:red;">{{count}}</span><a class="btn btn-outline-success btn-lg m-5" href="/" role="button">TOP</a></h4>
+<hr>
 {% for post in search_posts %}
   <div class="d-flex align-items-center">
-    <h2 class="p-5">{{ post.name }}</h2>
+    <h2 class="p-5">・{{ post.name }}</h2>
     <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
     <div class="p-2">
     <br/>
@@ -19,6 +19,7 @@
     hobby5:{{ post.hobby5}}<br/>
     </div>
   </div>
+  <hr>
 
 {% endfor %}
 

@@ -3,25 +3,28 @@
 {% block body %}
 
 <h2>検索条件</h2>
-<p>性別 : {{sex}},
-出身地：{{syussinti}},
-趣味：{{hobby1}} {{hobby2}} {{hobby3}} {{hobby4}} {{hobby5}},
-ヒット数：{{count}}</p>
-
+<h4>名前 : <span style="color:red;">{{name}}</span>,性別 : <span style="color:red;">{{sex}}</span>,
+    出身地：<span style="color:red;">{{syussinti}}</span>,
+趣味：<span style="color:red;">{{hobby1}} {{hobby2}} {{hobby3}} {{hobby4}} {{hobby5}}</span>,
+ヒット数：<span style="color:red;">{{count}}</span></h4>
+<a class="btn btn-outline-success btn-lg m-5" href="/" role="button">TOP</a>
+<h2>RESULT</h2>
+<hr>
 {% if results %}
-{% for r in results %}
-  <div>
-    <h2>{{ r.name }}</h2>
-    <a class="btn btn-secondary btn-sm" href="/detail/{{ r.id }}" role="button">Detail</a><br/>
-    <p>性別:{{r.sex}}</p>
-    <p>出身地：{{r.syussinti}}</p>
-    hobby1:{{ r.hobby1}}  <br/>
-    hobby2:{{ r.hobby2}}<br/>
-    hobby3:{{ r.hobby3}}<br/>
-    hobby4:{{ r.hobby4}}<br/>
-    hobby5:{{ r.hobby5}}<br/>
-
+{% for post in results %}
+<div class="d-flex align-items-center">
+    <h2 class="p-5">・{{ post.name }}</h2>
+    <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
+    <div class="p-2">
+    <br/>
+    hobby1:{{ post.hobby1}}<br/>
+    hobby2:{{ post.hobby2}}<br/>
+    hobby3:{{ post.hobby3}}<br/>
+    hobby4:{{ post.hobby4}}<br/>
+    hobby5:{{ post.hobby5}}<br/>
+    </div>
   </div>
+  <hr>
 
 {% endfor %}
 

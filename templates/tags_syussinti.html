@@ -3,14 +3,15 @@
 {% block body %}
 
 
-<h1 class="mt-4">{{syussinti}}出身の人達</h1><br/>
-<p>ヒット数：{{count}}</p>
+<h1 class="mt-4"><span style="color:red;">{{syussinti}}</span>出身の人達</h1>
+<h4>ヒット数：<span style="color:red;">{{count}}</span><a class="btn btn-outline-success btn-lg m-5" href="/" role="button">TOP</a></h4>
+<hr>
 {% for post in search_syussinti %}
   <div>
-    <h2>{{ post.name }}</h2>
+    <h2>・{{ post.name }}</h2>
     <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a><br/>
 
   </div>
-
+  <hr>
 {% endfor %}
 {% endblock %}

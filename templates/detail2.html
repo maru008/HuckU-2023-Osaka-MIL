@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h2 class="m-5" style="text-align: center;">詳細</h2>
+<h2 class="m-5" style="text-align: center;">Detail</h2>
 <div class="card w-50 mb-3" style="margin: auto;">
     <div class="card-body">
         <h2 class="card-name">{{ post.name }} <span class="ml-3"
                 style="font-size: 0.5em;">誕生日：{{ post.birthday.date() }} 年齢：{{post.age}}歳</span></h2>
 
-        <p>趣味:{% for tagn in tags %}
+        <p>趣味 : {% for tagn in tags %}
             <a href="{{ url_for('search_tag', tag=tagn)}}">{{ tagn }}</a>
           {% endfor %}</p>
         </details>
@@ -16,7 +16,7 @@
         
         
 
-        <p>得意分野・長所:{{ post.tokui1 }}</p>
+        <p>得意分野・長所 : {{ post.tokui1 }}</p>
 
         <!--
         <details>
@@ -25,17 +25,17 @@
         </details>
         -->
 
-        <p>行きたい場所:{{ post.destination1 }}</p>
+        <p>行きたい場所 : {{ post.destination1 }}</p>
 
-        <p>詳細:{{ post.detail }}</p>
+        <p>詳細 : {{ post.detail }}</p>
 
-        <p>相談:{{ post.sodan1 }}</p>
+        <p>相談 : {{ post.sodan1 }}</p>
 
         <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}/sodan1" role="button">Delete</a>
         <div class="pt-2">
             <!--<a class="btn btn-outline-success" href="/same/{{ post.id }}" role="button">Return</a>-->
             <a class="btn btn-success" href="/update/{{ post.id }}" role="button">Update</a>
-            <a class="btn btn-success" href="/same/{{ post.id }}" role="button">same</a>
+            <a class="btn btn-warning" href="/same/{{ post.id }}" role="button">気が合いそうな人</a>
         </div>
     </div>
 </div>
