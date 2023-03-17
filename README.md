@@ -11,11 +11,11 @@ TunaguNoteは、初対面の人が多い状況で、気が合う仲間を見つ�
 5. **共通点の表示**：ユーザー間の共通点（共通の趣味など）が一目でわかるように表示されます。
 6. **タグ検索**：特定のタグがグループ内に存在するかどうかを検索できます。
 
-# 主な開発者
+## 主な開発者
 - https://github.com/miwahonoka
 
-# 実装環境
+## 実装環境
 - python Flask
 
-# 備考
+## 備考
 - このアプリケーションはYahoo主催の[Open Hack U 2022 Spring OSAKA](https://hacku.yahoo.co.jp/hacku2022spring_osaka/)においてチームMILで開発されたものです．
